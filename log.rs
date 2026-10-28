@@ -7,8 +7,6 @@ use crate::ffi;
 
 static LOG: AtomicIsize = AtomicIsize::new(ffi::INVALID_HANDLE_VALUE);
 
-const LOG_NAME: &[u8] = b"dna-greendamn.log";
-
 pub fn init() -> bool {
     let addr = &LOG as *const AtomicIsize as *const u16;
     let mut hmod: ffi::HINSTANCE = core::ptr::null_mut();
@@ -40,7 +38,7 @@ pub fn init() -> bool {
     }
 
     let mut k = dir_len;
-    for &c in LOG_NAME {
+    for &c in crate::LOG_NAME {
         if k + 2 >= path.len() {
             return false;
         }
